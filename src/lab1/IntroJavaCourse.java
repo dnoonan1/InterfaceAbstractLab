@@ -1,50 +1,29 @@
 package lab1;
 
 /**
- * Describe responsibilities here.
- *
- * @author      your name goes here
+ * The {@code IntroJavaCourse} class extends {@code Course} and stores the 
+ * information for an intro to Java course. It inherits fields from
+ * {@code Course}, such as course name and number, number of credits, and
+ * prerequisites. The setCredits() method is overridden to ensure the number of
+ * credits is between 0 and 5.
+ * 
+ * @author      Dan Noonan
  * @version     1.00
  */
-public class IntroJavaCourse {
-    String courseName;
-    private String courseNumber;
-    private double credits;
-    private String prerequisites;
-
+public class IntroJavaCourse extends Course {
+    
+    private static final double MIN_CREDITS = 0;
+    private static final double MAX_CREDITS = 5;
+    
     public IntroJavaCourse(String courseName, String courseNumber) {
-        this.courseName = courseName;
-        this.courseNumber = courseNumber;
+        super(courseName, courseNumber);
     }
 
-    public String getCourseNumber() {
-        return courseNumber;
-    }
-
-    public void setCourseNumber(String courseNumber) {
-        this.courseNumber = courseNumber;
-    }
-
-    public double getCredits() {
-        return credits;
-    }
-
-
-    public String getPrerequisites() {
-        return prerequisites;
-    }
-
-    public void setPrerequisites(String prerequisites) {
-        this.prerequisites = prerequisites;
-    }
-
-        public void setCredits(double credits) {
-        if(credits < 0 || credits > 5.0) {
-            System.out.println(
-                    "Error: credits must be in the range 0.5 to 4.0");
-            System.exit(0);
+    public final void setCredits(double credits) {
+        if(credits < MIN_CREDITS || credits > MAX_CREDITS) {
+            error("Error: credits must be in the range " + MIN_CREDITS
+                    + " to " + MAX_CREDITS);
         }
-        this.setCredits(credits);
+        super.setCredits(credits);
     }
-
 }

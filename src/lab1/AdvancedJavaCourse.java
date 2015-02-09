@@ -3,63 +3,29 @@ package lab1;
 import javax.swing.JOptionPane;
 
 /**
- * Describe responsibilities here.
- *
- * @author      your name goes here
+ * The {@code AdvancedJavaCourse} class extends {@code Course} and stores the 
+ * information for an advanced Java course. It inherits fields from
+ * {@code Course}, such as course name and number, number of credits, and
+ * prerequisites. The setCredits() method is overridden to ensure the number of
+ * credits is between 0.5 and 4.
+ * 
+ * @author      Dan Noonan
  * @version     1.00
  */
-public class AdvancedJavaCourse {
-    String courseName;
-    private String courseNumber;
-    private double credits;
-    private String prerequisites;
-
-    public AdvancedJavaCourse(String courseName, String courseNumber) {
-        this.setCourseName(courseName);
-        this.setCourseNumber(courseNumber);
-    }
-
-    public String getCapitalizedCourseName() {
-        return this.getCourseName().toUpperCase();
-    }
-
-
-    public String getPrerequisites() {
-        return prerequisites;
-    }
-
-    public void setPrerequisites(String prerequisites) {
-        if(prerequisites == null || prerequisites.length() == 0) {
-            JOptionPane.showMessageDialog(null,
-                    "Error: prerequisites cannot be null of empty string");
-            System.exit(0);
-        }
-        this.prerequisites = prerequisites;
-    }
-
-    public void setCredits(double credits) {
-        if(credits < 0.5 || credits > 4.0) {
-            JOptionPane.showMessageDialog(null,
-                    "Error: credits must be in the range 0.5 to 4.0");
-            System.exit(0);
-        }
-        this.setCredits(credits);
-    }
-
-    public String getCourseName() {
-        return courseName;
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
-
-    public String getCourseNumber() {
-        return courseNumber;
-    }
-
-    public void setCourseNumber(String courseNumber) {
-        this.courseNumber = courseNumber;
+public class AdvancedJavaCourse extends Course {
+    
+    private static final double MIN_CREDITS = 0.5;
+    private static final double MAX_CREDITS = 4.0;
+    
+    public AdvancedJavaCourse (String courseName, String courseNumber) {
+        super(courseName, courseNumber);
     }
     
+    public final void setCredits(double credits) {
+        if(credits < MIN_CREDITS || credits > MAX_CREDITS) {
+            error("Error: credits must be in the range " + MIN_CREDITS
+                    + " to " + this.MAX_CREDITS);
+        }
+        super.setCredits(credits);
+    }
 }
