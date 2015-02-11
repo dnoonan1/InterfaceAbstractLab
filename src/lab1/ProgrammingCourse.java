@@ -3,7 +3,7 @@ package lab1;
 import javax.swing.JOptionPane;
 
 /**
- * The {@code Course} class stores information for a college course, including 
+ * The {@code ProgrammingCourse} class stores information for a college course, including 
  * name, course number, number of credits, and prerequisites. It includes
  * methods for getting and setting each of these values. Setters ensure proper
  * values are accepted. Null or empty strings are not allowed for course name
@@ -15,18 +15,25 @@ import javax.swing.JOptionPane;
  * 
  * @author Dan Noonan
  */
-public abstract class Course {
+public abstract class ProgrammingCourse {
+    // Fields
     private String courseName;
     private String courseNumber;
     private double credits;
+    private double minCredits;
+    private double maxCredits;
     private String prerequisites;
     
-    public Course() {}
+    /* Constructors */
     
-    public Course(String courseName, String courseNumber) {
+    public ProgrammingCourse() {}
+    
+    public ProgrammingCourse(String courseName, String courseNumber) {
         this.setCourseName(courseName);
         this.setCourseNumber(courseNumber);
     }
+    
+    /* Getters and Setters */
     
     public final String getCourseName() {
         return courseName;
@@ -60,11 +67,27 @@ public abstract class Course {
         return credits;
     }
 
-    public void setCredits(double credits) {
-        if(credits < 0) {
+    public final void setCredits(double credits) {
+        if(credits < minCredits || credits > maxCredits) {
             error("Error: credits must be greater than 0");
         }
         this.credits = credits;
+    }
+
+    public final double getMinCredits() {
+        return minCredits;
+    }
+
+    public final void setMinCredits(double minCredits) {
+        this.minCredits = minCredits;
+    }
+
+    public final double getMaxCredits() {
+        return maxCredits;
+    }
+
+    public final void setMaxCredits(double maxCredits) {
+        this.maxCredits = maxCredits;
     }
     
     public final String getPrerequisites() {
@@ -75,13 +98,16 @@ public abstract class Course {
         return prerequisites;
     }
 
-    public void setPrerequisites(String prerequisites) {
+    public final void setPrerequisites(String prerequisites) {
         if (prerequisites == null || prerequisites.length() == 0) {
             error("Error: prerequisites cannot be null or empty string");
         }
         this.prerequisites = prerequisites;
     }
     
+    /* Misc Method */
+    
+    // Send an error message and exit
     public final void error(String msg) {
         JOptionPane.showMessageDialog(null, msg);
         System.exit(0);

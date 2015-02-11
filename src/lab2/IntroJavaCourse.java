@@ -8,10 +8,12 @@ import javax.swing.JOptionPane;
  * @author      Dan Noonan
  * @version     1.00
  */
-public class IntroJavaCourse implements Course  {
+public class IntroJavaCourse implements ProgrammingCourse  {
     private String courseName;
     private String courseNumber;
     private double credits;
+    private double minCredits = 0.0;
+    private double maxCredits = 5.0;
     private String prerequisites;
 
     public IntroJavaCourse(String courseName, String courseNumber) {
@@ -36,7 +38,37 @@ public class IntroJavaCourse implements Course  {
 
     @Override
     public final void setCredits(double credits) {
+        if(credits < minCredits || credits > maxCredits) {
+            error("Error: credits must be in the range " + minCredits + " to "
+                    + maxCredits);
+        }
         this.credits = credits;
+    }
+    
+    @Override
+    public double getMinCredits() {
+        return minCredits;
+    }
+    
+    @Override
+    public void setMinCredits(double minCredits) {
+        if (minCredits < 0.0) {
+            error("minCredits must be greater than 0");
+        }
+        this.minCredits = minCredits;
+    }
+    
+    @Override
+    public double getMaxCredits() {
+        return maxCredits;
+    }
+    
+    @Override
+    public void setMaxCredits(double maxCredits) {
+        if (maxCredits < minCredits) {
+            error("maxCredits must be greater than minCredits");
+        }
+        this.maxCredits = maxCredits;
     }
 
     @Override
